@@ -1,4 +1,4 @@
-package it.unicam.cs.pa.chessboardgame.api.piece;
+package it.unicam.cs.pa.chessboardgame.api;
 
 import it.unicam.cs.pa.chessboardgame.api.model.board.CheckersPosition;
 import it.unicam.cs.pa.chessboardgame.api.util.CheckersStringToPositionParser;

@@ -1,4 +1,4 @@
-package it.unicam.cs.pa.chessboardgame.api.piece;
+package it.unicam.cs.pa.chessboardgame.api;
 
 import it.unicam.cs.pa.chessboardgame.api.model.board.CheckersBoard;
 import it.unicam.cs.pa.chessboardgame.api.model.board.CheckersPosition;
@@ -159,5 +159,45 @@ public class CheckersGameRulesTest {
     public void shouldNotBeDrawByRepetition() {
         assertFalse(rules.isDrawByRepetition(0));
         assertFalse(rules.isDrawByRepetition(39));
+    }
+
+    @Test
+    public void shouldBeAPromotion(){
+        board.clearBoard();
+        CheckersPiece whiteMan = new CheckersPiece(CheckersColor.WHITE);
+        CheckersPiece blackMan = new CheckersPiece(CheckersColor.BLACK);
+        board.setPieceAt(whiteMan,new CheckersPosition(0,1));
+        board.setPieceAt(blackMan, new CheckersPosition(7,0));
+
+        assertTrue(rules.canPromote(board, new CheckersPosition(0,1)));
+        assertTrue(rules.canPromote(board, new CheckersPosition(7,0)));
+    }
+
+    @Test
+    public void shouldNotBeAPromotion(){
+        board.clearBoard();
+        CheckersPiece whiteKing = new CheckersPiece(CheckersColor.WHITE, CheckersPieceType.KING);
+        CheckersPiece blackKing = new CheckersPiece(CheckersColor.BLACK, CheckersPieceType.KING);
+        CheckersPiece whiteMan = new CheckersPiece(CheckersColor.WHITE);
+        CheckersPiece blackMan = new CheckersPiece(CheckersColor.BLACK);
+        CheckersPosition bottomRow = new CheckersPosition(7,0);
+        CheckersPosition topRow = new CheckersPosition(0,1);
+        CheckersPosition bottomRow2 = new CheckersPosition(7,2);
+        CheckersPosition topRow2 = new CheckersPosition(0,3);
+
+        assertFalse(rules.canPromote(board, bottomRow2));
+        assertFalse(rules.canPromote(board, bottomRow));
+        assertFalse(rules.canPromote(board, topRow));
+        assertFalse(rules.canPromote(board, topRow2));
+
+        board.setPieceAt(whiteKing,topRow);
+        board.setPieceAt(blackKing, bottomRow);
+        board.setPieceAt(blackMan,topRow);
+        board.setPieceAt(whiteMan, bottomRow);
+
+        assertFalse(rules.canPromote(board, bottomRow2));
+        assertFalse(rules.canPromote(board, bottomRow));
+        assertFalse(rules.canPromote(board, topRow));
+        assertFalse(rules.canPromote(board, topRow2));
     }
 }

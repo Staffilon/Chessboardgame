@@ -18,7 +18,8 @@ import java.util.Iterator;
 public class CheckersGameRules implements
         GameRules<CheckersPosition, CheckersPiece, CheckersSquare, CheckersBoard>,
         DrawByRepetitionRule<CheckersPosition, CheckersPiece, CheckersSquare, CheckersBoard>,
-        LossByStalePositionRule<CheckersPosition, CheckersPiece, CheckersSquare, CheckersBoard> {
+        LossByStalePositionRule<CheckersPosition, CheckersPiece, CheckersSquare, CheckersBoard>,
+        PromotionRule<CheckersPosition, CheckersPiece, CheckersSquare, CheckersBoard>{
     private final int movesBeforeDrawByRepetition;
     private final CheckersMovementManager movementManager;
 
@@ -122,5 +123,21 @@ public class CheckersGameRules implements
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean canPromote(CheckersBoard board, CheckersPosition position) {
+        CheckersPiece piece = board.getPieceAt(position);
+
+        if(piece == null || piece.hasBeenPromoted()){
+            return false;
+        }
+        if(piece.getColor() == CheckersColor.BLACK && position.row() !=7){
+            return false;
+        }
+        if(piece.getColor() == CheckersColor.WHITE && position.row() !=0){
+            return false;
+        }
+        return true;
     }
 }

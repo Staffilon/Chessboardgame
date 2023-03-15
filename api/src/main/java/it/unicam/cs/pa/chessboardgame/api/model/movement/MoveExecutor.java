@@ -12,17 +12,15 @@ import it.unicam.cs.pa.chessboardgame.api.model.piece.Piece;
  * @param <B> the position system used by the chessboard game
  * @param <P> the pieces used by the chessboard game
  * @param <S> the squares used by the board in the chessboard game
- * @param <T> the board used by the chessboard game
  * @param <M> the type of moves that the chessboard game uses
  */
-public interface MoveExecutor<B extends BoardPosition, P extends Piece, S extends Square<B, P>, T extends Board<B, P, S>,
+public interface MoveExecutor<B extends BoardPosition, P extends Piece, S extends Square<B, P>,
         M extends Move<B, P, S>> {
     /**
      * Makes a move on the board for the given side.
      *
-     * @param board the board on which the move will be made
      * @param move  the move which is going to be made
      * @param side  the side of the player that wants to make the move
      */
-    void makeMove(T board, M move, Color side);
+    void makeMove(M move, Color side);
 }
