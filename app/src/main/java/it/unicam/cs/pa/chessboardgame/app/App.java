@@ -6,7 +6,6 @@ package it.unicam.cs.pa.chessboardgame.app;
 import it.unicam.cs.pa.chessboardgame.api.controller.CheckersGameController;
 public class App {
     public static void main(String[] args) {
-        //System.out.println("ciao");
         CheckersGameController controller = new CheckersGameController();
         controller.start();
     }

@@ -69,5 +69,4 @@ public class CheckersGameControllerTest {
 
         assertEquals("Michael", playerName);
     }
-
 }
